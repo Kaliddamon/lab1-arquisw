@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bank App - Sistema Bancario</title>
+    <!-- Bootstrap CDN (juniors always use CDN) -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container">
+            <a class="navbar-brand fw-bold" href="#">
+                <i class="bi bi-bank"></i> BankApp
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" onclick="mostrarVista('clientes')">
+                            <i class="bi bi-people"></i> Clientes
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" onclick="mostrarVista('transferencia')">
+                            <i class="bi bi-arrow-left-right"></i> Transferencias
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" onclick="mostrarVista('historial')">
+                            <i class="bi bi-clock-history"></i> Historial
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" onclick="mostrarVista('crearCliente')">
+                            <i class="bi bi-person-plus"></i> Nuevo Cliente
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mt-4">
+
+        <!-- Alerta global -->
+        <div id="alertaGlobal" class="alert d-none" role="alert"></div>
+
+        <!-- ===== VISTA: CONSULTAR CLIENTES ===== -->
+        <div id="vista-clientes" class="vista">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <h2><i class="bi bi-people-fill text-primary"></i> Clientes Registrados</h2>
+                <button class="btn btn-success" onclick="mostrarVista('crearCliente')">
+                    <i class="bi bi-plus-circle"></i> Agregar Cliente
+                </button>
+            </div>
+
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-hover table-striped" id="tablaClientes">
+                            <thead class="table-primary">
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Nombre</th>
+                                    <th>Apellido</th>
+                                    <th>N° Cuenta</th>
+                                    <th>Saldo</th>
+                                    <th>Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tbodyClientes">
+                                <tr>
+                                    <td colspan="6" class="text-center">
+                                        <div class="spinner-border text-primary" role="status"></div>
+                                        <p>Cargando...</p>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ===== VISTA: CREAR CLIENTE ===== -->
+        <div id="vista-crearCliente" class="vista d-none">
+            <h2><i class="bi bi-person-plus-fill text-success"></i> Registrar Nuevo Cliente</h2>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="card shadow-sm">
+                        <div class="card-header bg-success text-white">
+                            <h5 class="mb-0">Datos del Cliente</h5>
+                        </div>
+                        <div class="card-body">
+                            <form id="formCrearCliente">
+                                <div class="mb-3">
+                                    <label for="inputNombre" class="form-label">Nombre *</label>
+                                    <input type="text" class="form-control" id="inputNombre" placeholder="Ej: Juan" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="inputApellido" class="form-label">Apellido *</label>
+                                    <input type="text" class="form-control" id="inputApellido" placeholder="Ej: Pérez" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="inputCuenta" class="form-label">Número de Cuenta *</label>
+                                    <input type="text" class="form-control" id="inputCuenta" placeholder="Ej: ACC-001" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="inputSaldo" class="form-label">Saldo Inicial *</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text">$</span>
+                                        <input type="number" class="form-control" id="inputSaldo" min="0" step="0.01" placeholder="0.00" required>
+                                    </div>
+                                </div>
+                                <div class="d-grid gap-2">
+                                    <button type="submit" class="btn btn-success">
+                                        <i class="bi bi-save"></i> Guardar Cliente
+                                    </button>
+                                    <button type="button" class="btn btn-secondary" onclick="mostrarVista('clientes')">
+                                        Cancelar
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card border-info">
+                        <div class="card-body">
+                            <h6 class="text-info"><i class="bi bi-info-circle"></i> Instrucciones</h6>
+                            <ul>
+                                <li>Todos los campos marcados con * son obligatorios</li>
+                                <li>El número de cuenta debe ser único</li>
+                                <li>El saldo inicial puede ser 0</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ===== VISTA: TRANSFERENCIA ===== -->
+        <div id="vista-transferencia" class="vista d-none">
+            <h2><i class="bi bi-arrow-left-right text-warning"></i> Realizar Transferencia</h2>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="card shadow-sm">
+                        <div class="card-header bg-warning text-dark">
+                            <h5 class="mb-0">Datos de la Transferencia</h5>
+                        </div>
+                        <div class="card-body">
+                            <form id="formTransferencia">
+                                <div class="mb-3">
+                                    <label for="cuentaOrigen" class="form-label">
+                                        <i class="bi bi-arrow-up-circle text-danger"></i> Cuenta Origen (Remitente) *
+                                    </label>
+                                    <input type="text" class="form-control" id="cuentaOrigen" placeholder="N° cuenta de quien envía" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="cuentaDestino" class="form-label">
+                                        <i class="bi bi-arrow-down-circle text-success"></i> Cuenta Destino (Receptor) *
+                                    </label>
+                                    <input type="text" class="form-control" id="cuentaDestino" placeholder="N° cuenta de quien recibe" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="montoTransferencia" class="form-label">Monto a Transferir *</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text">$</span>
+                                        <input type="number" class="form-control" id="montoTransferencia" min="0.01" step="0.01" placeholder="0.00" required>
+                                    </div>
+                                </div>
+                                <div class="d-grid gap-2">
+                                    <button type="submit" class="btn btn-warning text-dark fw-bold">
+                                        <i class="bi bi-send"></i> Realizar Transferencia
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Resultado transferencia -->
+                <div class="col-md-6">
+                    <div id="resultadoTransferencia" class="d-none">
+                        <div class="card border-success">
+                            <div class="card-header bg-success text-white">
+                                <i class="bi bi-check-circle"></i> Transferencia Exitosa
+                            </div>
+                            <div class="card-body">
+                                <p><strong>ID Transacción:</strong> <span id="resId">-</span></p>
+                                <p><strong>Desde:</strong> <span id="resOrigen">-</span></p>
+                                <p><strong>Hacia:</strong> <span id="resDestino">-</span></p>
+                                <p><strong>Monto:</strong> $<span id="resMonto">-</span></p>
+                                <p><strong>Fecha:</strong> <span id="resFecha">-</span></p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card border-secondary mt-3">
+                        <div class="card-body">
+                            <h6 class="text-secondary"><i class="bi bi-exclamation-triangle"></i> Notas</h6>
+                            <ul class="text-muted small">
+                                <li>Verifique el número de cuenta antes de transferir</li>
+                                <li>El saldo debe ser suficiente</li>
+                                <li>Las transferencias son inmediatas</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ===== VISTA: HISTORIAL ===== -->
+        <div id="vista-historial" class="vista d-none">
+            <h2><i class="bi bi-clock-history text-info"></i> Historial de Transacciones</h2>
+
+            <div class="card shadow-sm mb-3">
+                <div class="card-body">
+                    <div class="row align-items-end">
+                        <div class="col-md-6">
+                            <label for="buscarCuentaHistorial" class="form-label">Buscar por número de cuenta:</label>
+                            <input type="text" class="form-control" id="buscarCuentaHistorial" placeholder="Ej: ACC-001">
+                        </div>
+                        <div class="col-md-3 mt-2">
+                            <button class="btn btn-info text-white w-100" onclick="buscarHistorial()">
+                                <i class="bi bi-search"></i> Buscar
+                            </button>
+                        </div>
+                        <div class="col-md-3 mt-2">
+                            <button class="btn btn-outline-secondary w-100" onclick="limpiarHistorial()">
+                                <i class="bi bi-x-circle"></i> Limpiar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-hover">
+                            <thead class="table-info">
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Cuenta Origen</th>
+                                    <th>Cuenta Destino</th>
+                                    <th>Monto</th>
+                                    <th>Fecha y Hora</th>
+                                    <th>Tipo</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tbodyHistorial">
+                                <tr>
+                                    <td colspan="6" class="text-center text-muted">
+                                        <i class="bi bi-search"></i> Ingrese un número de cuenta para buscar
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div id="resumenHistorial" class="d-none">
+                        <hr>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="text-center p-2 bg-light rounded">
+                                    <h6 class="text-muted">Total Transacciones</h6>
+                                    <h4 id="totalTx">0</h4>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="text-center p-2 bg-light rounded">
+                                    <h6 class="text-success">Total Recibido</h6>
+                                    <h4 class="text-success" id="totalRecibido">$0</h4>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="text-center p-2 bg-light rounded">
+                                    <h6 class="text-danger">Total Enviado</h6>
+                                    <h4 class="text-danger" id="totalEnviado">$0</h4>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Modal para ver detalle de cliente -->
+    <div class="modal fade" id="modalDetalleCliente" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header bg-primary text-white">
+                    <h5 class="modal-title"><i class="bi bi-person-badge"></i> Detalle del Cliente</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body" id="detalleClienteBody">
+                    <!-- Se llena dinamicamente -->
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                    <button type="button" class="btn btn-info text-white" id="btnVerHistorialCliente">
+                        <i class="bi bi-clock-history"></i> Ver Historial
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer simple -->
+    <footer class="mt-5 py-3 bg-light text-center text-muted">
+        <small>BankApp v1.0 &mdash; Laboratorio 1 - Arquitectura de Software</small>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
