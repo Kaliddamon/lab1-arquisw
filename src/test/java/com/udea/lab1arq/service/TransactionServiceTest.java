@@ -16,6 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -47,14 +48,14 @@ class TransactionServiceTest {
 
         // Crear clientes con datos generados por Faker
         sender = new Customer();
-        sender.setAccountNumber(faker.code().asin());
+        sender.setAccountNumber("ACC-" + UUID.randomUUID());
         sender.setFirstName(faker.name().firstName());
         sender.setLastName(faker.name().lastName());
         sender.setBalance(1000.0);
         sender = customerRepository.save(sender);
 
         receiver = new Customer();
-        receiver.setAccountNumber(faker.code().asin());
+        receiver.setAccountNumber("ACC-" + UUID.randomUUID());
         receiver.setFirstName(faker.name().firstName());
         receiver.setLastName(faker.name().lastName());
         receiver.setBalance(500.0);

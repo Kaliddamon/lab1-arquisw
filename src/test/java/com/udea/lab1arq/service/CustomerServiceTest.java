@@ -13,6 +13,7 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -39,7 +40,7 @@ class CustomerServiceTest {
 
         // Crear cliente de prueba con Faker
         testCustomer = new Customer();
-        testCustomer.setAccountNumber(faker.code().asin());
+        testCustomer.setAccountNumber("ACC-" + UUID.randomUUID());
         testCustomer.setFirstName(faker.name().firstName());
         testCustomer.setLastName(faker.name().lastName());
         testCustomer.setBalance(faker.number().randomDouble(2, 100, 10000));
