@@ -1,0 +1,7 @@
+organization=kaliddamon
+projectKey=lab1-arquisw
+serverUrl=https://sonarcloud.io
+serverVersion=8.0.0.110812
+dashboardUrl=https://sonarcloud.io/dashboard?id=lab1-arquisw
+ceTaskId=AaEzaDkZwPGr5f_x0Se2
+ceTaskUrl=https://sonarcloud.io/api/ce/task?id=AaEzaDkZwPGr5f_x0Se2

@@ -1,0 +1,236 @@
+
+1.0lab1-arquiswJavaFrontend"1791863817504*java2.B™
+
+:
+5src/main/java/com/udea/lab1arq/config/CorsConfig.java2
+	
+type3
+	
+MAIN4
+
+package6
+
+com.udea.lab1arq.config7
+'
+"com.udea.lab1arq.config.CorsConfig9
+
+class10
+
+access11
+
+public12
+
+
+full-range13
+
+(9:1)-(23:2)14
+
+simple-name15
+
+
+CorsConfig16
+:
+4org.springframework.context.annotation.Configuration17
+
+unknown19
+
+annotated by20
+
+
+uses21
+`
+Zcom.udea.lab1arq.config.CorsConfig#corsFilter()Lorg/springframework/web/filter/CorsFilter;23
+
+method24
+
+(12:5)-(22:6)25
+
+
+corsFilter26
+1
++org.springframework.context.annotation.Bean27
+/
+)org.springframework.web.filter.CorsFilter29
+
+returns30
+4
+.org.springframework.web.cors.CorsConfiguration33
+
+is type34
+
+calls35
+
+
+references36
+a
+[org.springframework.web.cors.CorsConfiguration#addAllowedOriginPattern(Ljava/lang/String;)V38
+
+ARG_039
+
+*40
+Z
+Torg.springframework.web.cors.CorsConfiguration#addAllowedHeader(Ljava/lang/String;)V42
+Z
+Torg.springframework.web.cors.CorsConfiguration#addAllowedMethod(Ljava/lang/String;)V44
+B
+<org.springframework.web.cors.UrlBasedCorsConfigurationSource46
+¢
+›org.springframework.web.cors.UrlBasedCorsConfigurationSource#registerCorsConfiguration(Ljava/lang/String;Lorg/springframework/web/cors/CorsConfiguration;)V48
+	
+/**49J
+
+1
+12
+
+
+3
+4 Z
+
+5
+5768jÜ
+
+18
+181719
+
+28
+282910
+U
+22O
+222324 *
+1 (!28:5B$
+
+
+11
+12
+
+
+13
+25
+
+
+15
+26R
+
+27
+
+37
+373824
+
+45
+454610
+
+47
+474824
+
+32
+323310
+
+31
+312719
+O
+8J
+8910 *
+1
+ 
+(:5B$
+
+
+11
+12
+
+
+13
+14
+
+
+15
+16R
+
+17
+
+43
+434424
+
+41
+414224rí
+
+81820*
+1	 	(
+
+81821*
+1	 	(
+
+222830*
+1 (
+
+223120*
+1 (
+
+
+223121*
+1 (
+
+
+222821*
+1 (
+
+223234*
+1 (!
+
+223221*
+1	 (
+
+223235*
+1( (9
+
+223236*
+1	 ('
+'
+223735*
+1 ('2
+
+
+39
+40
+
+223236*
+1	 ( 
+'
+224135*
+1 ( 2
+
+
+39
+40
+
+223236*
+1	 ( 
+'
+224335*
+1 ( 2
+
+
+39
+40
+
+224534*
+1) (/
+
+224521*
+1	 ((
+
+224535*
+16 (U
+
+224536*
+1	 ()
+'
+224735*
+1 ()2
+
+
+39
+49
+
+222835*
+1 (

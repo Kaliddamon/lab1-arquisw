@@ -1,0 +1,256 @@
+
+1.0lab1-arquiswJavaFrontend"1791863817667*java2.Bí
+>
+9src/main/java/com/udea/lab1arq/mapper/CustomerMapper.java2
+	
+type3
+	
+MAIN4
+
+package6
+
+com.udea.lab1arq.mapper7
++
+&com.udea.lab1arq.mapper.CustomerMapper9
+
+	interface10
+
+access11
+
+public12
+
+
+full-range13
+
+(8:1)-(14:2)14
+
+simple-name15
+
+CustomerMapper16
+
+org.mapstruct.Mapper17
+
+ARG_componentModel18
+
+spring19
+
+unknown21
+
+annotated by22
+
+
+uses23
+5
+/com.udea.lab1arq.mapper.CustomerMapper.INSTANCE25
+
+field26
+
+(10:5)-(10:71)27
+
+INSTANCE28
+
+is type29
+
+returns30
+#
+org.mapstruct.factory.Mappers32
+
+
+references33
+R
+Lorg.mapstruct.factory.Mappers#getMapper(Ljava/lang/Class;)Ljava/lang/Object;35
+
+method36
+
+calls37
+x
+rcom.udea.lab1arq.mapper.CustomerMapper#toDTO(Lcom/udea/lab1arq/entity/Customer;)Lcom/udea/lab1arq/DTO/CustomerDTO;39
+
+(12:5)-(12:42)40
+
+toDTO41
+&
+ com.udea.lab1arq.DTO.CustomerDTO43
+&
+ com.udea.lab1arq.entity.Customer45
+
+	has param46
+{
+ucom.udea.lab1arq.mapper.CustomerMapper#toEntity(Lcom/udea/lab1arq/DTO/CustomerDTO;)Lcom/udea/lab1arq/entity/Customer;48
+
+(13:5)-(13:48)49
+
+toEntity50J
+
+1
+12
+
+
+3
+4 Z
+
+5
+5768j°
+
+20
+201721
+M
+38G
+383936 *
+1 (28:5B$
+
+
+11
+12
+
+
+13
+40
+
+
+15
+41
+]
+8X
+8910 *
+1	 	( :5B$
+
+
+11
+12
+
+
+13
+14
+
+
+15
+16R
+
+17
+
+
+18
+19
+M
+24G
+242526 *
+1
+ 
+(28:5B$
+
+
+11
+12
+
+
+13
+27
+
+
+15
+28
+
+31
+313221
+M
+47G
+474836 *
+1 (28:5B$
+
+
+11
+12
+
+
+13
+49
+
+
+15
+50
+
+42
+424321
+
+44
+444521
+
+34
+343536r•
+
+82022*
+1 (#
+
+82023*
+1 (
+
+24829*
+1
+ 
+(
+
+24823*
+1
+ 
+(
+
+24823*
+1
+ 
+(
+
+24830*
+1
+ 
+(0
+
+243133*
+1
+ 
+(0
+
+243437*
+1
+' 
+(0
+
+243123*
+1
+ 
+(&
+
+24823*
+1
+1 
+(?
+
+384230*
+1 (
+
+384446*
+1 (
+
+384223*
+1 (
+
+384429*
+1  ((
+
+384423*
+1 (
+
+474430*
+1 (
+
+474246*
+1 ("
+
+474423*
+1 (
+
+474229*
+1# (.
+
+474223*
+1 ("
