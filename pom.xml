@@ -20,6 +20,9 @@
     <properties>
         <java.version>17</java.version>
         <org.mapstruct.version>1.5.5.Final</org.mapstruct.version>
+        <sonar.coverage.jacoco.xmlReportPaths>
+            C:\Users\CRIST\Desktop\ArquiSW - Laboratorio 1/target/site/jacoco/jacoco.xml
+        </sonar.coverage.jacoco.xmlReportPaths>
     </properties>
 
     <dependencies>
