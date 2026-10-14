@@ -126,7 +126,7 @@ jobs:
 
   deploy-render:
     name: Desplegar en Render
-    needs: build-image
+    needs: build
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     steps:
