@@ -7,6 +7,10 @@ on:
   push:
     branches:
       - main
+      - feature/render-deployment
+  pull_request:
+    branches:
+      - main
 
 jobs:
   # Test's job
@@ -108,7 +112,7 @@ jobs:
           # Set artifact name Arquitectura de Software Universidad de Antioquia
           name: artifact
           # From this path
-          path: target/tester-0.0.1-SNAPSHOT.jar
+          path: target/gitlab.jar
   
       - name: Build & push Docker image
         uses: mr-smithers-excellent/docker-build-push@v6
@@ -119,3 +123,14 @@ jobs:
           dockerfile: Dockerfile
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
+
+  deploy-render:
+    name: Desplegar en Render
+    needs: build-image
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Solicitar despliegue a Render
+        env:
+          RENDER_DEPLOY_HOOK: ${{ secrets.RENDER_DEPLOY_HOOK }}
+        run: curl --fail --silent --show-error --request POST "$RENDER_DEPLOY_HOOK"

@@ -1,0 +1,92 @@
+# EJEMPLO DE REFERENCIA: este archivo está fuera de .github/workflows y no se ejecuta.
+# Para activarlo, adapta su contenido manualmente en .github/workflows/build.yml.
+#
+# Requisito para que la imagen use el artefacto descargado: adaptar el Dockerfile
+# para copiar target/gitlab.jar y ajustar .dockerignore para permitir ese JAR.
+# El Dockerfile actual compila nuevamente el proyecto y .dockerignore excluye target.
+
+name: CI/CD Pipeline - ejemplo Render
+
+on:
+  push:
+    branches:
+      - main
+      - feature/render-deployment
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  quality:
+    name: Pruebas y análisis SonarQube
+    runs-on: ubuntu-latest
+    steps:
+      - name: Descargar el repositorio
+        uses: actions/checkout@v4
+
+      - name: Configurar Java 17 y caché Maven
+        uses: actions/setup-java@v4
+        with:
+          distribution: zulu
+          java-version: '17'
+          cache: maven
+
+      - name: Ejecutar pruebas, empaquetar el JAR y analizar con SonarQube
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        run: mvn -B clean verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=Kaliddamon_lab1-arquisw
+
+      - name: Guardar el JAR generado
+        uses: actions/upload-artifact@v4
+        with:
+          name: aplicacion-jar
+          path: target/gitlab.jar
+          if-no-files-found: error
+
+  build-image:
+    name: Construir imagen Docker
+    needs: quality
+    runs-on: ubuntu-latest
+    steps:
+      - name: Descargar el repositorio
+        uses: actions/checkout@v4
+
+      - name: Recuperar el JAR de la etapa de validación
+        uses: actions/download-artifact@v4
+        with:
+          name: aplicacion-jar
+          path: target
+
+      - name: Configurar Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Iniciar sesión en Docker Hub (sólo para main)
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+
+      - name: Construir imagen y publicarla sólo desde main
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          file: ./Dockerfile
+          platforms: linux/amd64
+          push: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
+          tags: docker.io/cristian0sanchez/arquisw-lab2_2026:latest
+
+  deploy-render:
+    name: Desplegar en Render
+    needs: build-image
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Solicitar despliegue a Render
+        env:
+          RENDER_DEPLOY_HOOK: ${{ secrets.RENDER_DEPLOY_HOOK }}
+        run: curl --fail --silent --show-error --request POST "$RENDER_DEPLOY_HOOK"
